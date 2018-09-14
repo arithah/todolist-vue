@@ -1,11 +1,21 @@
 <template>
     <div class="show-todo container">
-        <ul v-for="todo in todoList" :key="todo.id">
-            <li v-if="todo.status=='inprogress'">{{ todo.displayName }}</li>
-        </ul>
-      <h5 class="center">Completed</h5>
-      <ul v-for="todo in todoList" :key="todo.id">
-            <li v-if="todo.status=='completed'">{{ todo.displayName }}</li>
+      <ul class="todo">
+          <li v-for="(todo, index) in todoList" :key="todo.id">
+            <div @click="todoClick(todo, index)" v-if="todo.status=='inprogress'">
+              <i class="material-icons checkbox">check_box_outline_blank</i>
+              <span class="progress-todo">{{ todo.displayName }}</span>
+            </div>
+          </li>
+      </ul>
+      <h5 class="center">- Completed -</h5>
+      <ul class="todo">
+            <li v-for="(todo, index) in todoList" :key="todo.id">
+              <div @click="todoClick(todo, index)" v-if="todo.status=='completed'">
+                <i class="material-icons checkbox">check_box</i>
+                <span class="progress-todo">{{ todo.displayName }}</span>
+              </div>
+            </li>
         </ul>
     </div>
 </template>
@@ -21,10 +31,28 @@ export default {
         { id: '3', displayName: 'Wash Car', status: 'inprogress' }
       ]
     }
+  },
+  methods: {
+    todoClick (todo, index) {
+      this.todoList[index].status = todo.status === 'inprogress' ? 'completed' : 'inprogress'
+    }
   }
 }
 </script>
 
 <style>
-
+  .show-todo {
+    width: 200px;
+    padding: 0px 25px;
+  }
+  .show-todo .todo {
+    text-align: left;
+  }
+  .show-todo .todo li {
+    display: inline-block;
+  }
+ .show-todo .todo .checkbox {
+   font-size: 18px;
+   color: #3700B3;
+ }
 </style>
