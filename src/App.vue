@@ -1,25 +1,14 @@
 <template>
   <div id="app">
-    <h1>{{ title }}</h1>
+    <router-view/>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'app',
-  data () {
-    return {
-      title: 'Todo List'
-    }
-  }
+  name: 'App'
 }
 </script>
 
 <style>
-h1 {
-  color: #444;
-  font-weight: normal;
-  text-align: center;
-}
 </style>
