@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import TodayList from '@/components/TodayList'
+import NewTodo from '@/components/NewTodo'
 
 Vue.use(Router)
 
@@ -10,6 +11,11 @@ export default new Router({
       path: '/',
       name: 'TodayList',
       component: TodayList
+    },
+    {
+      path: '/new-todo',
+      name: 'NewTodo',
+      component: NewTodo
     }
   ]
 })

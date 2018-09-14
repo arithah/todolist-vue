@@ -1,12 +1,13 @@
 <template>
-    <nav>
-        <div class="nav-wrapper deep-purple accent-4">
-            <a href="#" class="brand-logo center">Todo List</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
+    <div class="navbar">
+        <nav class="nav-extended deep-purple accent-4">
+            <div class="nav-content valign-wrapper">
+                <router-link :to="{ name: 'TodayList' }">
+                    <span class="nav-title">Todo List</span>
+                </router-link>
+            </div>
+        </nav>
+    </div>
 </template>
 
 <script>
@@ -19,5 +20,7 @@ export default {
 </script>
 
 <style>
-
+    .navbar nav {
+        padding: 0 20px;
+    }
 </style>

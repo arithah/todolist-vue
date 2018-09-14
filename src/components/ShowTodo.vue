@@ -1,18 +1,21 @@
 <template>
-    <div class="show-todo container">
-      <h5 class="center">- {{ heading }} -</h5>
+  <div class="container">
+    <h4 class="heading">{{ heading }}</h4>
+    <div class="show-todo">
       <div class="todo">
         <p v-for="(todo, index) in todoList" :key="todo.id">
           <label @click="todoClick(todo, index)">
-            <input type="checkbox" class="filled-in" />
-            <span>{{ todo.displayName }}</span>
+            <input type="checkbox" class="filled-in" :checked="todo.status === 'completed' ? 'checked' : ''"/>
+            <span :class="todo.status">{{ todo.displayName }}</span>
           </label>
         </p>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
+
 export default {
   name: 'ShowTodo',
   data () {
@@ -23,26 +26,35 @@ export default {
   },
   props: [ 'heading', 'todoList' ],
   methods: {
-    todoClick (todo, index) {
-      this.todoList[index].status = todo.status === 'inprogress' ? 'completed' : 'inprogress'
+    todoClick (todo) {
+      this.$emit('updateTodo', { todo })
     }
+    // todoClick (todo, index) {
+    //   console.log(todo.status);
+    //   let _status = 'inprogress'
+    //   if (todo.status === 'inprogress') {
+    //     _status = 'completed'
+    //   }
+    //   db.collection('todoList').doc(todo.id).update({
+    //     displayName: todo.displayName,
+    //     status: _status
+    //     // status: todo.status === 'inprogress' ? 'completed' : 'inprogress'
+    //   }).catch(err => {
+    //     console.log(err)
+    //   })
+    // }
   }
 }
 </script>
 
 <style>
-  .show-todo .add-todo .add-todo-field {
-    display: inline-block;
-    width: 100px;
+  .heading {
+    padding-bottom: 25px;
   }
-  .show-todo .todo {
-    width: 200px;
+  .show-todo .todo p {
+    text-align: left;
   }
-  .show-todo .todo li {
-    display: inline-block;
+  .show-todo .todo .completed {
+    text-decoration-line: line-through;
   }
- .show-todo .todo .checkbox {
-   font-size: 18px;
-   color: #3700B3;
- }
 </style>

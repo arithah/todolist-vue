@@ -1,13 +1,22 @@
 <template>
   <div class="today-list container">
-    <NewTodo />
-    <ShowTodo class="center" heading="Today" :todoList="todoList" />
+    <div class="card">
+      <div class="card-content">
+        <ShowTodo class="center" heading="Today's List" :todoList="todoList" @updateTodo="updateTodo" />
+      </div>
+      <span class="btn-floating btn-large halfway-fab pink accent-3">
+        <router-link :to="{ name: 'NewTodo'}">
+          <i class="material-icons">add</i>
+        </router-link>
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
 import NewTodo from '@/components/NewTodo'
 import ShowTodo from '@/components/ShowTodo'
+import db from '@/firebase/init'
 
 export default {
   name: 'TodayList',
@@ -18,15 +27,38 @@ export default {
   data () {
     return {
       title: "Today's List",
-      todoList: [
-        { id: '0', displayName: 'Call Home', status: 'completed' },
-        { id: '1', displayName: 'Get Groceries', status: 'inprogress' },
-        { id: '2', displayName: 'Wash Car', status: 'inprogress' }
-      ]
+      todoList: []
+    }
+  },
+  created () {
+    this.getTodoList()
+  },
+  methods: {
+    getTodoList () {
+      this.todoList = []
+      // fetch todo list data from firestore
+      db.collection('todoList').get().then(snapshot => {
+        snapshot.forEach(doc => {
+          let todoList = doc.data()
+          todoList.id = doc.id
+          this.todoList.push(todoList)
+        })
+      })
+    },
+    updateTodo (payload) {
+      db.collection('todoList').doc(payload.todo.id).update({
+        displayName: payload.todo.displayName,
+        status: payload.todo.status === 'inprogress' ? 'completed' : 'inprogress'
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }
 </script>
 
 <style>
+.card {
+  box-shadow: none;
+}
 </style>
