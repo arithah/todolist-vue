@@ -1,22 +1,14 @@
 <template>
     <div class="show-todo container">
-      <ul class="todo">
-          <li v-for="(todo, index) in todoList" :key="todo.id">
-            <div @click="todoClick(todo, index)" v-if="todo.status=='inprogress'">
-              <i class="material-icons checkbox">check_box_outline_blank</i>
-              <span class="progress-todo">{{ todo.displayName }}</span>
-            </div>
-          </li>
-      </ul>
-      <h5 class="center">- Completed -</h5>
-      <ul class="todo">
-            <li v-for="(todo, index) in todoList" :key="todo.id">
-              <div @click="todoClick(todo, index)" v-if="todo.status=='completed'">
-                <i class="material-icons checkbox">check_box</i>
-                <span class="progress-todo">{{ todo.displayName }}</span>
-              </div>
-            </li>
-        </ul>
+      <h5 class="center">- {{ heading }} -</h5>
+      <div class="todo">
+        <p v-for="(todo, index) in todoList" :key="todo.id">
+          <label @click="todoClick(todo, index)">
+            <input type="checkbox" class="filled-in" />
+            <span>{{ todo.displayName }}</span>
+          </label>
+        </p>
+      </div>
     </div>
 </template>
 
@@ -25,13 +17,11 @@ export default {
   name: 'ShowTodo',
   data () {
     return {
-      todoList: [
-        { id: '1', displayName: 'Call Home', status: 'completed' },
-        { id: '2', displayName: 'Get Groceries', status: 'inprogress' },
-        { id: '3', displayName: 'Wash Car', status: 'inprogress' }
-      ]
+      newToDo: null,
+      message: 'Hit Tab to add to do'
     }
   },
+  props: [ 'heading', 'todoList' ],
   methods: {
     todoClick (todo, index) {
       this.todoList[index].status = todo.status === 'inprogress' ? 'completed' : 'inprogress'
@@ -41,12 +31,12 @@ export default {
 </script>
 
 <style>
-  .show-todo {
-    width: 200px;
-    padding: 0px 25px;
+  .show-todo .add-todo .add-todo-field {
+    display: inline-block;
+    width: 100px;
   }
   .show-todo .todo {
-    text-align: left;
+    width: 200px;
   }
   .show-todo .todo li {
     display: inline-block;
