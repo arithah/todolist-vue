@@ -7,6 +7,7 @@
           <label @click="todoClick(todo, index)">
             <input type="checkbox" class="filled-in" :checked="todo.status === 'completed' ? 'checked' : ''"/>
             <span :class="todo.status">{{ todo.displayName }}</span>
+            <i class="material-icons delete right" @click="deleteTodo(todo)">delete</i>
           </label>
         </p>
       </div>
@@ -28,21 +29,10 @@ export default {
   methods: {
     todoClick (todo) {
       this.$emit('updateTodo', { todo })
+    },
+    deleteTodo (todo) {
+      this.$emit('deleteTodo', { todo })
     }
-    // todoClick (todo, index) {
-    //   console.log(todo.status);
-    //   let _status = 'inprogress'
-    //   if (todo.status === 'inprogress') {
-    //     _status = 'completed'
-    //   }
-    //   db.collection('todoList').doc(todo.id).update({
-    //     displayName: todo.displayName,
-    //     status: _status
-    //     // status: todo.status === 'inprogress' ? 'completed' : 'inprogress'
-    //   }).catch(err => {
-    //     console.log(err)
-    //   })
-    // }
   }
 }
 </script>

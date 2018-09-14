@@ -2,7 +2,7 @@
   <div class="today-list container">
     <div class="card">
       <div class="card-content">
-        <ShowTodo class="center" heading="Today's List" :todoList="todoList" @updateTodo="updateTodo" />
+        <ShowTodo class="center" heading="Today's List" :todoList="todoList" @updateTodo="updateTodo" @deleteTodo="deleteTodo"/>
       </div>
       <span class="btn-floating btn-large halfway-fab pink accent-3">
         <router-link :to="{ name: 'NewTodo'}">
@@ -52,6 +52,9 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+    },
+    deleteTodo (payload) {
+      db.collection('todoList').doc(payload.todo.id).delete();
     }
   }
 }
