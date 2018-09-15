@@ -49,12 +49,24 @@ export default {
       db.collection('todoList').doc(payload.todo.id).update({
         displayName: payload.todo.displayName,
         status: payload.todo.status === 'inprogress' ? 'completed' : 'inprogress'
+      }).then(() => {
+        // manual update within UI
+        const _todoList = this.todoList.map(todo => {
+          if (todo.id === payload.todo.id) {
+            todo.status = payload.todo.status === 'inprogress' ? 'completed' : 'inprogress'
+          }
+          return todo
+        })
+        this.todoList = _todoList
       }).catch(err => {
         console.log(err)
       })
     },
     deleteTodo (payload) {
-      db.collection('todoList').doc(payload.todo.id).delete();
+      db.collection('todoList').doc(payload.todo.id).delete()
+      this.todoList = this.todoList.filter(todo => {
+        return todo.id !== payload.todo.id
+      })
     }
   }
 }

@@ -4,8 +4,8 @@
     <div class="show-todo">
       <div class="todo">
         <p v-for="(todo, index) in todoList" :key="todo.id">
-          <label @click="todoClick(todo, index)">
-            <input type="checkbox" class="filled-in" :checked="todo.status === 'completed' ? 'checked' : ''"/>
+          <label>
+            <input type="checkbox" @click="todoClick(todo, index)" class="filled-in" :checked="todo.status === 'completed' ? 'checked' : ''"/>
             <span :class="todo.status">{{ todo.displayName }}</span>
             <i class="material-icons delete right" @click="deleteTodo(todo)">delete</i>
           </label>
@@ -46,5 +46,8 @@ export default {
   }
   .show-todo .todo .completed {
     text-decoration-line: line-through;
+  }
+  .show-todo .todo .delete {
+    cursor: pointer;
   }
 </style>
