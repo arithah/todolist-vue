@@ -4,7 +4,7 @@
     <div class="show-todo">
       <div class="todo">
         <p v-for="(todo, index) in todoList" :key="todo.id">
-          <label>
+          <label v-if="showStatus === todo.status">
             <input type="checkbox" @click="todoClick(todo, index)" class="filled-in" :checked="todo.status === 'completed' ? 'checked' : ''"/>
             <span :class="todo.status">{{ todo.displayName }}</span>
             <i class="material-icons delete right" @click="deleteTodo(todo)">delete</i>
@@ -25,7 +25,7 @@ export default {
       message: 'Hit Tab to add to do'
     }
   },
-  props: [ 'heading', 'todoList' ],
+  props: [ 'heading', 'todoList', 'showStatus' ],
   methods: {
     todoClick (todo) {
       this.$emit('updateTodo', { todo })

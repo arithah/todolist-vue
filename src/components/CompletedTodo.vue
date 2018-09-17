@@ -1,42 +1,40 @@
 <template>
-  <div class="today-list container">
-    <div class="card">
-      <div class="card-content">
-        <ShowTodo class="center" heading="Today's List" :todoList="todoList" @updateTodo="updateTodo" @deleteTodo="deleteTodo" showStatus="inprogress" />
-      </div>
-      <span class="btn-floating btn-large halfway-fab pink accent-3">
-        <router-link :to="{ name: 'NewTodo'}">
-          <i class="material-icons">add</i>
-        </router-link>
-      </span>
+    <div class="completed-list container">
+        <div class="card">
+            <div class="card-content">
+                <ShowTodo class="center" heading="Completed List" :todoList="todoList" @updateTodo="updateTodo" @deleteTodo="deleteTodo" showStatus="completed" />
+            </div>
+            <span class="btn-floating btn-large halfway-fab pink accent-3">
+                <router-link :to="{ name: 'NewTodo'}">
+                <i class="material-icons">add</i>
+                </router-link>
+            </span>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-import NewTodo from '@/components/NewTodo'
 import ShowTodo from '@/components/ShowTodo'
 import db from '@/firebase/init'
 
 export default {
-  name: 'TodayList',
+  name: 'CompletedTodo',
   components: {
-    NewTodo,
     ShowTodo
   },
   data () {
     return {
-      title: "Today's List",
       todoList: []
     }
   },
   created () {
-    // fetch todo list data from firestore
     db.collection('todoList').get().then(snapshot => {
       snapshot.forEach(doc => {
-        let todoList = doc.data()
-        todoList.id = doc.id
-        this.todoList.push(todoList)
+        if (doc.data().status === 'completed') {
+          let todo = doc.data()
+          todo.id = doc.id
+          this.todoList.push(todo)
+        }
       })
     })
   },
