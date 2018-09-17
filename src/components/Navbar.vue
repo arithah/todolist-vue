@@ -1,28 +1,43 @@
 <template>
     <nav class="nav-wrapper deep-purple accent-4">
-        <router-link :to="{ name: 'TodayList' }">
-            <span class="brand-logo center">Todo List</span>
+        <router-link :to="{ name: 'TodayList' }" class="brand-logo center">
+            Todo List
         </router-link>
         <ul class="right">
-            <li>
-                <router-link :to="{ name: 'CompletedTodo' }">
-                    <span>Compeleted</span>
-                </router-link>
-            </li>
-            <li>
-                <router-link to="">
-                    <span>Logout</span>
-                </router-link>
-            </li>
+            <li v-if="!user"><router-link :to="{ name: 'Signup' }">Signup</router-link></li>
+            <li v-if="!user"><router-link :to="{ name: 'Login' }">Login</router-link></li>
+            <li v-if="user"><router-link :to="{ name: 'CompletedTodo' }">Compeleted</router-link></li>
+            <li v-if="user"><a @click="logout">Logout</a></li>
         </ul>
     </nav>
 </template>
 
 <script>
+
+import firebase from 'firebase'
+
 export default {
   name: 'Navbar',
   data () {
-    return {}
+    return {
+      user: null
+    }
+  },
+  created () {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.user = user
+      } else {
+        this.user = null
+      }
+    })
+  },
+  methods: {
+    logout () {
+      firebase.auth().signOut().then(() => {
+        this.$router.push({ name: 'Login' })
+      })
+    }
   }
 }
 </script>
