@@ -1,9 +1,8 @@
 <template>
   <div class="new-todo container">
     <div class="card">
+      <h4 class="heading center">Add To Do</h4>
       <div class="card-content">
-
-        <h4 class="heading center">Add To Do</h4>
         <div class="add-todo">
           <input type="text" class="validate" @keydown.enter.prevent="addToDo" v-model="newToDo">
           <span class="error-text" data-error="wrong" data-success="right">{{ message }}</span>

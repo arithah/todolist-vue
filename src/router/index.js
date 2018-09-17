@@ -5,6 +5,7 @@ import Signup from '@/components/auth/Signup'
 import Login from '@/components/auth/Login'
 import TodayList from '@/components/TodayList'
 import NewTodo from '@/components/NewTodo'
+import ViewProfile from '@/components/layout/ViewProfile'
 
 Vue.use(Router)
 
@@ -32,6 +33,14 @@ const router = new Router({
       path: '/new-todo',
       name: 'NewTodo',
       component: NewTodo,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/view-profile',
+      name: 'ViewProfile',
+      component: ViewProfile,
       meta: {
         requiresAuth: true
       }

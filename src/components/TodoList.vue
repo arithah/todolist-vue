@@ -5,7 +5,7 @@
         <label v-if="showStatus === todo.status">
           <input type="checkbox" @click="todoClick(todo, index)" class="filled-in" :checked="todo.status === 'completed' ? 'checked' : ''"/>
           <span :class="todo.status">{{ todo.displayName }}</span>
-          <i class="material-icons delete right" @click="deleteTodo(todo)">delete</i>
+          <i class="material-icons delete right" @click="deleteTodo(todo, index)">delete</i>
         </label>
       </p>
     </div>
@@ -21,11 +21,11 @@ export default {
   },
   props: [ 'todoList', 'showStatus' ],
   methods: {
-    todoClick (todo) {
-      this.$emit('updateTodo', { todo })
+    todoClick (todo, index) {
+      this.$emit('updateTodo', { todo, index })
     },
-    deleteTodo (todo) {
-      this.$emit('deleteTodo', { todo })
+    deleteTodo (todo, index) {
+      this.$emit('deleteTodo', { todo, index })
     }
   }
 }

@@ -1,9 +1,8 @@
 <template>
   <div class="today-list container">
     <div class="card">
+    <h4 class="heading center">Today's List</h4>
       <div class="card-content">
-
-        <h4 class="heading center">Today's List</h4>
         <TodoList
           class="center"
           :todoList="todoList"
@@ -11,8 +10,8 @@
           @deleteTodo="deleteTodo"
           showStatus="inprogress"
         />
-
         <h5 class="heading center">Completed</h5>
+
         <TodoList
           class="center"
           :todoList="todoList"
@@ -20,13 +19,12 @@
           @deleteTodo="deleteTodo"
           showStatus="completed"
         />
+        <span class="btn-floating btn-large halfway-fab pink accent-3">
+          <router-link :to="{ name: 'NewTodo'}">
+            <i class="material-icons">add</i>
+          </router-link>
+        </span>
       </div>
-
-      <span class="btn-floating btn-large halfway-fab pink accent-3">
-        <router-link :to="{ name: 'NewTodo'}">
-          <i class="material-icons">add</i>
-        </router-link>
-      </span>
     </div>
   </div>
 </template>
@@ -63,37 +61,23 @@ export default {
   },
   methods: {
     updateTodo (payload) {
+      const status = payload.todo.status === 'inprogress' ? 'completed' : 'inprogress'
       db.collection('todoList').doc(payload.todo.id).update({
         timestamp: Date.now(),
-        status: payload.todo.status === 'inprogress' ? 'completed' : 'inprogress'
+        status
+      }).then(() => {
+        // manual update within UI
+        this.todoList[payload.index].status = status
       }).catch(err => {
         console.log(err)
       })
-      // db.collection('todoList').doc(todo.id).update({
-      //   email: this.user.email,
-      //   timestamp: Date.now(),
-      //   displayName: todo.displayName,
-      //   status: todo.status === 'inprogress' ? 'completed' : 'inprogress'
-      // }).then(() => {
-      //   // setTimeout(() => {
-      //   //   // manual update within UI
-      //   //   const _todoList = this.todoList.map(todo => {
-      //   //     if (todo.id === todo.id) {
-      //   //       todo.status = todo.status === 'inprogress' ? 'completed' : 'inprogress'
-      //   //     }
-      //   //     return todo
-      //   //   })
-      //   //   this.todoList = _todoList
-      //   // }, 500)
-      // }).catch(err => {
-      //   console.log(err)
-      // })
     },
     deleteTodo (payload) {
-      db.collection('todoList').doc(payload.todo.id).delete()
-      // this.todoList = this.todoList.filter(todo => {
-      //   return todo.id !== todo.id
-      // })
+      db.collection('todoList').doc(payload.todo.id).delete().then(() => {
+        this.todoList.splice(payload.index, 1)
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }
