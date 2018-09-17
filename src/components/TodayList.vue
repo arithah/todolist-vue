@@ -46,17 +46,14 @@ export default {
   },
   data () {
     return {
-      user: null,
-      title: "Today's List",
       todoList: []
     }
   },
   created () {
     // get current user
-    this.user = firebase.auth().currentUser
-
+    const user = firebase.auth().currentUser
     // fetch todo list data from firestore
-    db.collection('todoList').get().then(snapshot => {
+    db.collection('todoList').where('user_id', '==', user.uid).get().then(snapshot => {
       snapshot.forEach(doc => {
         let todoList = doc.data()
         todoList.id = doc.id
