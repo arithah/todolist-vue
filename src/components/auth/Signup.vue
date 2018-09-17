@@ -1,32 +1,34 @@
 <template>
     <div class="signup container">
-        <h4 class="heading center">Signup</h4>
-        <form @submit.prevent="signup" class="card-panel">
-            <div class="field">
-                <label for="firstName">First Name:</label>
-                <input type="text" name="firstName" v-model="firstName">
-            </div>
-            <div class="field">
-                <label for="lastName">Last Name:</label>
-                <input type="text" name="lastName" v-model="lastName">
-            </div>
-            <div class="field">
-                <label for="nickName">Nick Name:</label>
-                <input type="text" name="nickName" v-model="nickName">
-            </div>
-            <div class="field">
-                <label for="email">Email:</label>
-                <input type="email" name="email" v-model="email">
-            </div>
-            <div class="field">
-                <label for="password">Password:</label>
-                <input type="password" name="password" v-model="password">
-            </div>
-            <p class="red-text" v-if="feedback">{{ feedback }}</p>
-            <div class="field center">
-                <button class="btn deep-purple">Signup</button>
-            </div>
-        </form>
+        <div class="card">
+            <h4 class="heading center">Signup</h4>
+            <form @submit.prevent="signup">
+                <div class="field">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" name="firstName" v-model="firstName">
+                </div>
+                <div class="field">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" name="lastName" v-model="lastName">
+                </div>
+                <div class="field">
+                    <label for="nickName">Nick Name:</label>
+                    <input type="text" name="nickName" v-model="nickName">
+                </div>
+                <div class="field">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" v-model="email">
+                </div>
+                <div class="field">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" v-model="password">
+                </div>
+                <p class="red-text" v-if="feedback">{{ feedback }}</p>
+                <div class="field center">
+                    <button class="btn deep-purple">Signup</button>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -75,20 +77,7 @@ export default {
 </script>
 
 <style>
-.signup {
-    max-width: 400px;
-    margin-top: 60px;
-}
-
-.signup h2 {
-    font-size: 2.4em;
-}
-
-.signup .field {
-    margin-bottom: 16px;
-}
-
-.signup .card-panel {
-    box-shadow: none;
-}
+    .signup .field {
+        margin-bottom: 16px;
+    }
 </style>

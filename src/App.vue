@@ -1,16 +1,12 @@
 <template>
   <div id="app">
     <Navbar />
-    <div class="row">
-      <div class="col m6 offset-m3">
-        <router-view/>
-      </div>
-    </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
+import Navbar from '@/components/layout/Navbar'
 
 export default {
   name: 'App',
@@ -21,4 +17,12 @@ export default {
 </script>
 
 <style>
+  .container {
+    max-width: 400px;
+    margin-top: 60px;
+  }
+  .card {
+    box-shadow: none;
+    max-width: 400px;
+  }
 </style>

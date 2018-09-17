@@ -103,13 +103,7 @@ export default {
 </script>
 
 <style>
-  .card {
-    box-shadow: none;
-  }
   .card .card-content {
     padding-bottom: 50px;
-  }
-  .card .card-content .todo-list .delete {
-    cursor: pointer;
   }
 </style>

@@ -1,14 +1,19 @@
 <template>
-    <div class="container">
-        <h4 class="heading">Add a To Do</h4>
+  <div class="new-todo container">
+    <div class="card">
+      <div class="card-content">
+
+        <h4 class="heading center">Add To Do</h4>
         <div class="add-todo">
-            <div class="todo">
-                <input type="text" class="validate" @keydown.tab.prevent="AddToDo" v-model="newToDo">
-                <span class="error-text" data-error="wrong" data-success="right">{{ message }}</span>
-                <button @click="AddToDo">Add Todo</button>
-            </div>
+          <input type="text" class="validate" @keydown.tab.prevent="AddToDo" v-model="newToDo">
+          <span class="error-text" data-error="wrong" data-success="right">{{ message }}</span>
+          <div class="field center">
+            <button class="btn pink accent-3">Add Todo</button>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -43,8 +48,7 @@ export default {
 </script>
 
 <style>
-  .heading {
-    padding-bottom: 25px;
+  .add-todo .field {
+    margin-top: 16px;
   }
-
 </style>

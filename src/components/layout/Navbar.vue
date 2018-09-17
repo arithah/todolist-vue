@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style>
-    .nav-wrapper {
-        padding: 0 20px;
-    }
+  .nav-wrapper {
+      padding: 0 20px;
+  }
 </style>

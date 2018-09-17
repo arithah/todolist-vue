@@ -1,20 +1,22 @@
 <template>
     <div class="login container">
-        <h4 class="heading center">Login</h4>
-        <form @submit.prevent="login" class="card-panel">
-            <div class="field">
-                <label for="email">Email:</label>
-                <input type="email" name="email" v-model="email">
-            </div>
-            <div class="field">
-                <label for="password">Password:</label>
-                <input type="password" name="password" v-model="password">
-            </div>
-            <p class="red-text" v-if="feedback">{{ feedback }}</p>
-            <div class="field center">
-                <button class="btn deep-purple">login</button>
-            </div>
-        </form>
+        <div class="card">
+            <h4 class="heading center">Login</h4>
+            <form @submit.prevent="login">
+                <div class="field">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" v-model="email">
+                </div>
+                <div class="field">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" v-model="password">
+                </div>
+                <p class="red-text" v-if="feedback">{{ feedback }}</p>
+                <div class="field center">
+                    <button class="btn deep-purple">login</button>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -49,20 +51,7 @@ export default {
 </script>
 
 <style>
-.login {
-    max-width: 400px;
-    margin-top: 60px;
-}
-
-.login h2 {
-    font-size: 2.4em;
-}
-
-.login .field {
-    margin-bottom: 16px;
-}
-
-.login .card-panel {
-    box-shadow: none;
-}
+    .login .field {
+        margin-bottom: 16px;
+    }
 </style>
