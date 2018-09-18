@@ -8,17 +8,18 @@
           :todoList="todoList"
           @updateTodo="updateTodo"
           @deleteTodo="deleteTodo"
-          showStatus="inprogress"
+          status="inprogress"
         />
         <h5 class="heading center">Completed</h5>
 
-        <TodoList
+        <TodoList v-if="todoList.length > 0"
           class="center"
           :todoList="todoList"
           @updateTodo="updateTodo"
           @deleteTodo="deleteTodo"
-          showStatus="completed"
+          status="completed"
         />
+
         <span class="btn-floating btn-large halfway-fab pink accent-3">
           <router-link :to="{ name: 'NewTodo'}">
             <i class="material-icons">add</i>

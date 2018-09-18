@@ -2,7 +2,7 @@
   <div class="todo-list">
     <div class="todo">
       <p v-for="(todo, index) in todoList" :key="todo.id">
-        <label v-if="showStatus === todo.status">
+        <label v-if="status === todo.status">
           <input type="checkbox" @click="todoClick(todo, index)" class="filled-in" :checked="todo.status === 'completed' ? 'checked' : ''"/>
           <span :class="todo.status">{{ todo.displayName }}</span>
           <i class="material-icons delete right" @click="deleteTodo(todo, index)">delete</i>
@@ -17,9 +17,11 @@
 export default {
   name: 'TodoList',
   data () {
-    return {}
+    return {
+
+    }
   },
-  props: [ 'todoList', 'showStatus' ],
+  props: [ 'todoList', 'status' ],
   methods: {
     todoClick (todo, index) {
       this.$emit('updateTodo', { todo, index })
