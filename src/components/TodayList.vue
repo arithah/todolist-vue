@@ -74,6 +74,7 @@ export default {
     },
     deleteTodo (payload) {
       db.collection('todoList').doc(payload.todo.id).delete().then(() => {
+        // manual update within UI
         this.todoList.splice(payload.index, 1)
       }).catch(err => {
         console.log(err)
