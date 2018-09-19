@@ -6,6 +6,7 @@
           <input type="checkbox" @click="todoClick(todo, index)" class="filled-in" :checked="todo.status === 'completed' ? 'checked' : ''"/>
           <span :class="todo.status">{{ todo.displayName }}</span>
           <i class="material-icons delete right" @click="deleteTodo(todo, index)">delete</i>
+          <i class="material-icons edit right" @click.prevent="editTodo(todo)">edit</i>
         </label>
       </p>
     </div>
@@ -26,6 +27,9 @@ export default {
     todoClick (todo, index) {
       this.$emit('updateTodo', { todo, index })
     },
+    editTodo (todo) {
+      this.$router.push({name: 'EditTodo', params: { todo }})
+    },
     deleteTodo (todo, index) {
       this.$emit('deleteTodo', { todo, index })
     }
@@ -43,7 +47,12 @@ export default {
   .todo-list .todo .completed {
     text-decoration-line: line-through;
   }
+  .todo-list .todo .edit {
+    margin: 0px 2px;
+    cursor: pointer;
+  }
   .todo-list .todo .delete {
+    margin: 0px 2px;
     cursor: pointer;
   }
 </style>

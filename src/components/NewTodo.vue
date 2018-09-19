@@ -5,9 +5,10 @@
       <div class="card-content">
         <div class="add-todo">
           <input type="text" class="validate" @keydown.enter.prevent="addToDo" v-model="newToDo">
-          <span class="error-text" data-error="wrong" data-success="right">{{ message }}</span>
+          <p class="red-text center" v-if="message">{{ message }}</p>
           <div class="field center">
             <button @click="addToDo" class="btn pink accent-3">Add Todo</button>
+            <button @click="cancel" class="btn pink accent-2">Cancel</button>
           </div>
         </div>
       </div>
@@ -43,7 +44,6 @@ export default {
   methods: {
     addToDo () {
       if (this.newToDo) {
-        console.log(this.user)
         db.collection('todoList').add({
           user_id: this.user.user_id,
           userDetails: {
@@ -62,6 +62,9 @@ export default {
       } else {
         this.message = 'You must enter a new to do'
       }
+    },
+    cancel () {
+      this.$router.push({ name: 'TodayList' })
     }
   }
 }
