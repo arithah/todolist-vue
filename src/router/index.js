@@ -11,6 +11,7 @@ import ViewProfile from '@/components/layout/ViewProfile'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/signup',
