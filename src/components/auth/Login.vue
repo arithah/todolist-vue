@@ -12,6 +12,7 @@
                     <input type="password" name="password" v-model="password">
                 </div>
                 <p class="red-text" v-if="feedback">{{ feedback }}</p>
+                <p class="black-text center">Don't have an account? <router-link :to="{ name: 'Signup'}"><a href="">Sign up here</a></router-link></p>
                 <div class="field center">
                     <button class="btn deep-purple">login</button>
                 </div>
