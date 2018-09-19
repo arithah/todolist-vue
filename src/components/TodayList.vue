@@ -9,15 +9,17 @@
           @updateTodo="updateTodo"
           @deleteTodo="deleteTodo"
           status="inprogress"
+          emptyMessage="You have no tasks for today"
         />
         <h5 class="heading center">Completed</h5>
 
-        <TodoList v-if="todoList.length > 0"
+        <TodoList
           class="center"
           :todoList="todoList"
           @updateTodo="updateTodo"
           @deleteTodo="deleteTodo"
           status="completed"
+          emptyMessage="You have no completed tasks"
         />
 
         <span class="btn-floating btn-large halfway-fab pink accent-3">

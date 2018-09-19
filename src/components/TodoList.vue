@@ -1,5 +1,6 @@
 <template>
   <div class="todo-list">
+    <p v-if="showEmptyMessage()" class="grey-text">{{ emptyMessage }}</p>
     <div class="todo">
       <p v-for="(todo, index) in todoList" :key="todo.id">
         <label v-if="status === todo.status">
@@ -18,11 +19,9 @@
 export default {
   name: 'TodoList',
   data () {
-    return {
-
-    }
+    return {}
   },
-  props: [ 'todoList', 'status' ],
+  props: [ 'todoList', 'status', 'emptyMessage' ],
   methods: {
     todoClick (todo, index) {
       this.$emit('updateTodo', { todo, index })
@@ -32,6 +31,15 @@ export default {
     },
     deleteTodo (todo, index) {
       this.$emit('deleteTodo', { todo, index })
+    },
+    showEmptyMessage () {
+      const list = this.todoList.filter(todo => {
+        return todo.status === this.status
+      })
+      if (list.length > 0) {
+        return false
+      }
+      return true
     }
   }
 }
