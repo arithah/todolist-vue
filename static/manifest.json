@@ -1,0 +1,16 @@
+{
+    "short_name": "TodoList",
+    "name": "Todo List",
+    "description": "A simply todo list app.",
+    "icons": [
+      {
+        "src":"images/icons/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "https://todolist-vue-13015.firebaseapp.com/",
+    "background_color": "#000",
+    "theme_color": "#536878",
+    "display": "standalone"
+  }
