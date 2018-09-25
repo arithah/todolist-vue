@@ -14,7 +14,12 @@
     <!-- Add to home screen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="TodoList PWA">
+    <meta name="apple-mobile-web-app-title" content="TodoList">
+
+    <!-- iPhone 8, 7, 6s, 6 (750px x 1334px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="<%= htmlWebpackPlugin.files.publicPath %>static/images/splash/apple-launch-750x1334.png">
+    
+    <!-- <link rel="apple-touch-startup-image" href="<%= htmlWebpackPlugin.files.publicPath %>static/images/icons/icon-192x192.png>" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"> -->
     <link rel="apple-touch-icon" href="<%= htmlWebpackPlugin.files.publicPath %>static/images/icons/icon-192x192.png">
   </head>
   <body>
