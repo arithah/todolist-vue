@@ -22,12 +22,14 @@
           emptyMessage="You have no completed tasks"
         />
 
-        <span class="btn-floating btn-large halfway-fab pink accent-3">
-          <router-link :to="{ name: 'NewTodo'}">
-            <i class="material-icons">add</i>
-          </router-link>
-        </span>
       </div>
+    </div>
+    <div class="fixed-action-btn">
+      <span class="btn-floating btn-large halfway-fab pink accent-3">
+        <router-link :to="{ name: 'NewTodo'}">
+          <i class="material-icons">add</i>
+        </router-link>
+      </span>
     </div>
   </div>
 </template>
@@ -90,5 +92,9 @@ export default {
 <style>
   .card .card-content {
     padding-bottom: 50px;
+  }
+  .fixed-action-btn {
+    right: 0px;
+    bottom: 45px;
   }
 </style>
