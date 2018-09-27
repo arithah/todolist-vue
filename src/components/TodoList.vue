@@ -63,4 +63,13 @@ export default {
     margin: 0px 2px;
     cursor: pointer;
   }
+
+  @media only screen and (max-width: 600px) {
+    .todo-list .todo p label span {
+      width: 230px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 </style>
