@@ -12,9 +12,10 @@
         </ul>
 
         <ul class="sidenav" id="mobile-demo">
-          <li v-if="!user"><router-link :to="{ name: 'Signup' }">Signup</router-link></li>
-          <li v-if="!user"><router-link :to="{ name: 'Login' }">Login</router-link></li>
-          <li v-if="user"><router-link :to="{ name: 'ViewProfile' }">{{ user.email }}</router-link></li>
+          <li v-if="user" @click="closeNav"><router-link :to="{ name: 'TodayList' }">Today List</router-link></li>
+          <li v-if="!user" @click="closeNav"><router-link :to="{ name: 'Signup' }">Signup</router-link></li>
+          <li v-if="!user" @click="closeNav"><router-link :to="{ name: 'Login' }">Login</router-link></li>
+          <li v-if="user" @click="closeNav"><router-link :to="{ name: 'ViewProfile' }">{{ user.email }}</router-link></li>
           <li v-if="user"><a @click="logout">Logout</a></li>
         </ul>
     </nav>
@@ -23,6 +24,7 @@
 <script>
 
 import firebase from 'firebase'
+import Materialize from 'materialize-css'
 
 export default {
   name: 'Navbar',
@@ -40,11 +42,22 @@ export default {
       }
     })
   },
+  mounted () {
+    const elems = document.querySelectorAll('.sidenav')
+    Materialize.Sidenav.init(elems)
+  },
   methods: {
+    closeNav () {
+      const elems = document.querySelectorAll('.sidenav')
+      Materialize.Sidenav.init(elems)
+    },
     logout () {
       firebase.auth().signOut().then(() => {
         this.$router.push({ name: 'Login' })
       })
+
+      const elems = document.querySelectorAll('.sidenav')
+      Materialize.Sidenav.init(elems)
     }
   }
 }
