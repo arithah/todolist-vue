@@ -4,7 +4,6 @@
     <h4 class="heading center">Today's List</h4>
       <div class="card-content">
         <TodoList
-          class="center"
           :todoList="todoList"
           @updateTodo="updateTodo"
           @deleteTodo="deleteTodo"
@@ -14,7 +13,6 @@
         <h5 class="heading center">Completed</h5>
 
         <TodoList
-          class="center"
           :todoList="todoList"
           @updateTodo="updateTodo"
           @deleteTodo="deleteTodo"
