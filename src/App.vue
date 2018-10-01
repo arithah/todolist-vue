@@ -46,12 +46,12 @@ export default {
 
 <style>
   .container {
-    max-width: 400px;
+    /* max-width: 400px; */
     margin-top: 60px;
   }
   .card {
     box-shadow: none;
-    max-width: 400px;
+    /* max-width: 400px; */
   }
   .add-to-home-alert {
     background-color: #26a69a;

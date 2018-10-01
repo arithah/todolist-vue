@@ -3,8 +3,7 @@ import Router from 'vue-router'
 import firebase from 'firebase'
 import Signup from '@/components/auth/Signup'
 import Login from '@/components/auth/Login'
-import TodayList from '@/components/TodayList'
-import ProjectList from '@/components/ProjectList'
+import MainLayout from '@/components/layout/MainLayout'
 import NewTodo from '@/components/NewTodo'
 import EditTodo from '@/components/EditTodo'
 import ViewProfile from '@/components/layout/ViewProfile'
@@ -26,16 +25,8 @@ const router = new Router({
     },
     {
       path: '/',
-      name: 'TodayList',
-      component: TodayList,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/project-list',
-      name: 'ProjectList',
-      component: ProjectList,
+      name: 'MainLayout',
+      component: MainLayout,
       meta: {
         requiresAuth: true
       }

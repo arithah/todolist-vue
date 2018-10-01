@@ -1,25 +1,15 @@
 <template>
-  <div class="today-list container row">
-    <div class="card col m8">
-    <h4 class="heading center">Today's List</h4>
+  <div class="today-list">
+    <div class="card">
+    <h4 class="heading center">{{ heading }}</h4>
       <div class="card-content">
         <TodoList
           :todoList="todoList"
           @updateTodo="updateTodo"
           @deleteTodo="deleteTodo"
-          status="inprogress"
+          :status="status"
           emptyMessage="You have no tasks for today"
         />
-        <h5 class="heading center">Completed</h5>
-
-        <TodoList
-          :todoList="todoList"
-          @updateTodo="updateTodo"
-          @deleteTodo="deleteTodo"
-          status="completed"
-          emptyMessage="You have no completed tasks"
-        />
-
       </div>
     </div>
     <div class="fixed-action-btn">
@@ -40,13 +30,15 @@ import TodoList from '@/components/TodoList'
 import db from '@/firebase/init'
 
 export default {
-  name: 'TodayList',
+  name: 'TodoContainer',
   components: {
     NewTodo,
     TodoList
   },
   data () {
     return {
+      heading: 'Inbox',
+      status: 'inprogress', // change to 'inprogress' or 'completed'
       todoList: []
     }
   },
