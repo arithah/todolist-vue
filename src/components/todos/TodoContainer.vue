@@ -35,10 +35,9 @@ export default {
     NewTodo,
     TodoList
   },
-  props: [ 'status' ],
+  props: [ 'status', 'heading' ],
   data () {
     return {
-      heading: 'Inbox',
       todoList: []
     }
   },
@@ -81,7 +80,7 @@ export default {
 
 <style>
   .card .card-content {
-    padding-bottom: 50px;
+    padding: 0px;
   }
   .fixed-action-btn {
     right: 0px;

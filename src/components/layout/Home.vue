@@ -4,7 +4,7 @@
       <SidePanel />
     </div>
     <div class="col m8">
-      <TodoContainer :status="getStatus()" />
+      <TodoContainer :status="getStatus()" :heading="getHeading()" />
     </div>
   </div>
 </template>
@@ -30,6 +30,14 @@ export default {
         return this.status
       }
       return 'inprogress'
+    },
+    getHeading () {
+      if (this.status === 'completed') {
+        return 'Completed'
+      } else if (this.status === 'deleted') {
+        return 'Deleted'
+      }
+      return 'Inbox'
     }
   }
 }

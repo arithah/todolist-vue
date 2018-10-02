@@ -47,7 +47,7 @@ export default {
 <style>
   .container {
     /* max-width: 400px; */
-    margin-top: 60px;
+    margin-top: 20px;
   }
   .card {
     box-shadow: none;
