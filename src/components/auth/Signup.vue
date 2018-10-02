@@ -64,7 +64,7 @@ export default {
             user_id: cred.user.uid
           })
         }).then(() => {
-          this.$router.push({ name: 'TodayList' })
+          this.$router.push({ name: 'Home' })
         }).catch(err => {
           this.feedback = err.message
         })

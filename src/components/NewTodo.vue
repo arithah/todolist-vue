@@ -54,7 +54,7 @@ export default {
           displayName: this.newToDo,
           status: 'inprogress'
         }).then(() => {
-          this.$router.push({ name: 'TodayList' })
+          this.$router.push({ name: 'Home' })
         }).catch(err => {
           console.log(err)
         })
@@ -64,7 +64,7 @@ export default {
       }
     },
     cancel () {
-      this.$router.push({ name: 'TodayList' })
+      this.$router.push({ name: 'Home' })
     }
   }
 }

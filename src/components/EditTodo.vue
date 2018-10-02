@@ -41,7 +41,7 @@ export default {
           timestamp: Date.now(),
           displayName: this.todoContent
         }).then(() => {
-          this.$router.push({ name: 'TodayList' })
+          this.$router.push({ name: 'Home' })
         }).catch(err => {
           console.log(err)
         })
@@ -51,7 +51,7 @@ export default {
       }
     },
     cancel () {
-      this.$router.push({ name: 'TodayList' })
+      this.$router.push({ name: 'Home' })
     }
   }
 }
