@@ -4,8 +4,8 @@ import firebase from 'firebase'
 import Signup from '@/components/auth/Signup'
 import Login from '@/components/auth/Login'
 import Home from '@/components/layout/Home'
-import NewTodo from '@/components/NewTodo'
-import EditTodo from '@/components/EditTodo'
+import NewTodo from '@/components/todos/NewTodo'
+import EditTodo from '@/components/todos/EditTodo'
 import ViewProfile from '@/components/layout/ViewProfile'
 
 Vue.use(Router)

@@ -25,8 +25,8 @@
 <script>
 
 import firebase from 'firebase'
-import NewTodo from '@/components/NewTodo'
-import TodoList from '@/components/TodoList'
+import NewTodo from '@/components/todos/NewTodo'
+import TodoList from '@/components/todos/TodoList'
 import db from '@/firebase/init'
 
 export default {
