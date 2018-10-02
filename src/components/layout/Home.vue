@@ -4,7 +4,7 @@
       <SidePanel />
     </div>
     <div class="col m8">
-      <TodoContainer />
+      <TodoContainer :status="getStatus()" />
     </div>
   </div>
 </template>
@@ -15,13 +15,22 @@ import SidePanel from '@/components/layout/SidePanel'
 import TodoContainer from '@/components/todos/TodoContainer'
 
 export default {
-  name: 'MainLayout',
+  name: 'Home',
   components: {
     SidePanel,
     TodoContainer
   },
+  props: [ 'status' ],
   data () {
     return {}
+  },
+  methods: {
+    getStatus () {
+      if (this.status) {
+        return this.status
+      }
+      return 'inprogress'
+    }
   }
 }
 </script>

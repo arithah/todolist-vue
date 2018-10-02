@@ -35,10 +35,10 @@ export default {
     NewTodo,
     TodoList
   },
+  props: [ 'status' ],
   data () {
     return {
       heading: 'Inbox',
-      status: 'inprogress', // change to 'inprogress' or 'completed'
       todoList: []
     }
   },

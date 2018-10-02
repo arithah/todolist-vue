@@ -1,6 +1,6 @@
 <template>
     <nav class="nav-wrapper deep-purple accent-4">
-        <router-link :to="{ name: 'TodayList' }" class="brand-logo center">
+        <router-link :to="{ name: 'Home' }" class="brand-logo center">
             Todo List
         </router-link>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -12,7 +12,21 @@
         </ul>
 
         <ul class="sidenav" id="mobile-demo">
-          <li v-if="user" @click="closeNav"><router-link :to="{ name: 'TodayList' }">Today List</router-link></li>
+          <li v-if="user" @click="closeNav">
+            <router-link class="collection-item" :to="{ name: 'Home', params: { status: 'inprogress' }}">
+              <span class="badge">12</span><i class="material-icons">inbox</i>Inbox
+            </router-link>
+          </li>
+          <li v-if="user" @click="closeNav">
+            <router-link class="collection-item" :to="{ name: 'Completed', params: { status: 'completed' }}">
+              <i class="material-icons">check</i>Completed
+            </router-link>
+          </li>
+          <li v-if="user" @click="closeNav">
+            <router-link class="collection-item" :to="{ name: 'Deleted', params: { status: 'deleted' }}">
+              <i class="material-icons">delete</i>Deleted
+            </router-link>
+          </li>
           <li v-if="!user" @click="closeNav"><router-link :to="{ name: 'Signup' }">Signup</router-link></li>
           <li v-if="!user" @click="closeNav"><router-link :to="{ name: 'Login' }">Login</router-link></li>
           <li v-if="user" @click="closeNav"><router-link :to="{ name: 'ViewProfile' }">{{ user.email }}</router-link></li>

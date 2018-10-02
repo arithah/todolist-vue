@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import firebase from 'firebase'
 import Signup from '@/components/auth/Signup'
 import Login from '@/components/auth/Login'
-import MainLayout from '@/components/layout/MainLayout'
+import Home from '@/components/layout/Home'
 import NewTodo from '@/components/NewTodo'
 import EditTodo from '@/components/EditTodo'
 import ViewProfile from '@/components/layout/ViewProfile'
@@ -25,8 +25,27 @@ const router = new Router({
     },
     {
       path: '/',
-      name: 'MainLayout',
-      component: MainLayout,
+      name: 'Home',
+      component: Home,
+      props: true,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/completed',
+      name: 'Completed',
+      component: Home,
+      props: true,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/deleted',
+      name: 'Deleted',
+      component: Home,
+      props: true,
       meta: {
         requiresAuth: true
       }
