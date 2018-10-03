@@ -23,9 +23,7 @@
               </div>
             </span>
             <div v-if="expandedTodo === index"  class="expanded">
-              <div class="comments">
-                Comments ...
-              </div>
+              <textarea name="comments" id="" cols="30" rows="10" placeholder="Comments - coming soon" disabled="true" ></textarea>
               <i class="material-icons delete right" @click="deleteTodo(todo, index)">delete</i>
               <i class="material-icons edit right" @click.prevent="editTodo(todo)">edit</i>
             </div>
@@ -93,6 +91,14 @@ export default {
   .todo-list .todo .delete {
     margin: 0px 2px;
     cursor: pointer;
+  }
+  .todo-list .todo .expanded {
+    height: 75px;
+    padding-left: 35px;
+  }
+  .todo-list .todo .expanded textarea {
+    border: none;
+    font-size: 12px;
   }
 
   /* @media only screen and (max-width: 600px) {
