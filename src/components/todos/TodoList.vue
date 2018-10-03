@@ -7,8 +7,6 @@
           <label v-if="status === todo.status">
             <input type="checkbox" @click="todoClick(todo, index)" class="filled-in" :checked="todo.status === 'completed' ? 'checked' : ''"/>
             <span :class="todo.status">{{ todo.displayName }}</span>
-            <i class="material-icons delete right" @click="deleteTodo(todo, index)">delete</i>
-            <i class="material-icons edit right" @click.prevent="editTodo(todo)">edit</i>
           </label>
         </p>
       </div>
@@ -19,9 +17,17 @@
         <p v-for="(todo, index) in todoList" :key="todo.id">
           <label v-if="status === todo.status">
             <input type="checkbox" @click="todoClick(todo, index)" class="filled-in" :checked="todo.status === 'completed' ? 'checked' : ''"/>
-            <span :class="todo.status" @click.prevent="expandTodo(todo, index)">{{ todo.displayName }}</span>
+            <span :class="todo.status">
+              <div @click.prevent="expandTodo(todo, index)">
+                {{ todo.displayName }}
+              </div>
+            </span>
             <div v-if="expandedTodo === index"  class="expanded">
-              Expanded
+              <div class="comments">
+                Comments ...
+              </div>
+              <i class="material-icons delete right" @click="deleteTodo(todo, index)">delete</i>
+              <i class="material-icons edit right" @click.prevent="editTodo(todo)">edit</i>
             </div>
           </label>
         </p>
