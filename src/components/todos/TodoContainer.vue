@@ -5,8 +5,7 @@
       <div class="card-content">
         <TodoList
           :todoList="todoList"
-          @updateTodo="updateTodo"
-          @deleteTodo="deleteTodo"
+          @handleTodo="handleTodo"
           :status="status"
           emptyMessage="You have no tasks for today"
         />
@@ -75,22 +74,13 @@ export default {
         })
       })
     },
-    updateTodo (payload) {
-      const status = payload.todo.status === 'inprogress' ? 'completed' : 'inprogress'
+    handleTodo (payload) {
       db.collection('todoList').doc(payload.todo.id).update({
         timestamp: Date.now(),
-        status
+        status: payload.status
       }).then(() => {
         // manual update within UI
-        this.todoList[payload.index].status = status
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    deleteTodo (payload) {
-      db.collection('todoList').doc(payload.todo.id).delete().then(() => {
-        // manual update within UI
-        this.todoList.splice(payload.index, 1)
+        this.todoList[payload.index].status = payload.status
       }).catch(err => {
         console.log(err)
       })

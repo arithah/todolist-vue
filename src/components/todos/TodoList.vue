@@ -46,13 +46,14 @@ export default {
   props: [ 'todoList', 'status', 'emptyMessage' ],
   methods: {
     todoClick (todo, index) {
-      this.$emit('updateTodo', { todo, index })
+      const status = todo.status === 'inprogress' ? 'completed' : 'inprogress'
+      this.$emit('handleTodo', { todo, index, status })
+    },
+    deleteTodo (todo, index) {
+      this.$emit('handleTodo', { todo, index, status: 'deleted' })
     },
     editTodo (todo) {
       this.$router.push({name: 'EditTodo', params: { todo }})
-    },
-    deleteTodo (todo, index) {
-      this.$emit('deleteTodo', { todo, index })
     },
     expandTodo (todo, index) {
       if (this.expandedTodo === index) {
