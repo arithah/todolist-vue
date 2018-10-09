@@ -33,6 +33,15 @@ const router = new Router({
       }
     },
     {
+      path: '/projects/:projectid',
+      name: 'Projects',
+      component: Home,
+      props: true,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/completed',
       name: 'Completed',
       component: Home,

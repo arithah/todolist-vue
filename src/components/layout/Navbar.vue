@@ -27,6 +27,14 @@
               <i class="material-icons">delete</i>Deleted
             </router-link>
           </li>
+          <li v-if="user && projects" @click="closeNav">
+            <a class="collection-item">Projects</a>
+          </li>
+          <li v-if="user" v-for="project in projects" :key="project.project_id" @click="closeNav">
+            <router-link class="collection-item" :to="{ name: 'Projects', params: { projectid: project.project_id }}">
+              <i class="material-icons">label</i>{{ project.displayName }}
+            </router-link>
+          </li>
           <li v-if="!user" @click="closeNav"><router-link :to="{ name: 'Signup' }">Signup</router-link></li>
           <li v-if="!user" @click="closeNav"><router-link :to="{ name: 'Login' }">Login</router-link></li>
           <li v-if="user" @click="closeNav"><router-link :to="{ name: 'ViewProfile' }">{{ user.email }}</router-link></li>
@@ -39,12 +47,14 @@
 
 import firebase from 'firebase'
 import Materialize from 'materialize-css'
+import db from '@/firebase/init'
 
 export default {
   name: 'Navbar',
   data () {
     return {
-      user: null
+      user: null,
+      projects: []
     }
   },
   created () {
@@ -54,6 +64,18 @@ export default {
       } else {
         this.user = null
       }
+    })
+
+    // get current user
+    const user = firebase.auth().currentUser
+    // fetch todo list data from firestore
+    db.collection('projects').where('users.user_id', '==', user.uid).get().then(snapshot => {
+      snapshot.forEach(doc => {
+        console.log('projects', doc.data())
+        let project = doc.data()
+        project.id = doc.id
+        this.projects.push(project)
+      })
     })
   },
   mounted () {
