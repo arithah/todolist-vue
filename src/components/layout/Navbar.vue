@@ -13,17 +13,17 @@
 
         <ul class="sidenav" id="mobile-demo">
           <li v-if="user" @click="closeNav">
-            <router-link class="collection-item" :to="{ name: 'Home', params: { status: 'inprogress' }}">
+            <router-link class="collection-item" :to="{ name: 'Home', params: { status: 'inprogress', title: 'Inbox' }}">
               <span class="badge">12</span><i class="material-icons">inbox</i>Inbox
             </router-link>
           </li>
           <li v-if="user" @click="closeNav">
-            <router-link class="collection-item" :to="{ name: 'Completed', params: { status: 'completed' }}">
+            <router-link class="collection-item" :to="{ name: 'Completed', params: { status: 'completed', title: 'Completed' }}">
               <i class="material-icons">check</i>Completed
             </router-link>
           </li>
           <li v-if="user" @click="closeNav">
-            <router-link class="collection-item" :to="{ name: 'Deleted', params: { status: 'deleted' }}">
+            <router-link class="collection-item" :to="{ name: 'Deleted', params: { status: 'deleted', title: 'Deleted' }}">
               <i class="material-icons">delete</i>Deleted
             </router-link>
           </li>
@@ -31,7 +31,7 @@
             <a class="collection-item">Projects</a>
           </li>
           <li v-if="user" v-for="project in projects" :key="project.project_id" @click="closeNav">
-            <router-link class="collection-item" :to="{ name: 'Projects', params: { projectid: project.project_id }}">
+            <router-link class="collection-item" :to="{ name: 'Projects', params: { projectid: project.project_id, title: project.displayName }}">
               <i class="material-icons">label</i>{{ project.displayName }}
             </router-link>
           </li>
@@ -71,7 +71,6 @@ export default {
     // fetch todo list data from firestore
     db.collection('projects').where('users.user_id', '==', user.uid).get().then(snapshot => {
       snapshot.forEach(doc => {
-        console.log('projects', doc.data())
         let project = doc.data()
         project.id = doc.id
         this.projects.push(project)

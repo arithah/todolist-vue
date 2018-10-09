@@ -38,22 +38,43 @@ export default {
   props: [ 'status', 'heading' ],
   data () {
     return {
+      user: null,
       todoList: []
     }
   },
   created () {
     // get current user
-    const user = firebase.auth().currentUser
-    // fetch todo list data from firestore
-    db.collection('todoList').where('user_id', '==', user.uid).orderBy('timestamp', 'desc').get().then(snapshot => {
-      snapshot.forEach(doc => {
-        let todoList = doc.data()
-        todoList.id = doc.id
-        this.todoList.push(todoList)
-      })
-    })
+    this.user = firebase.auth().currentUser
+    this.fetchTodo()
+  },
+  watch: {
+    '$route.params.projectid' (to, from) {
+      if (to) {
+        this.todoList = []
+        db.collection('todoList').where('user_id', '==', this.user.uid).where('projectDetails.project_id', '==', this.$route.params.projectid).orderBy('timestamp', 'desc').get().then(snapshot => {
+          snapshot.forEach(doc => {
+            let todoList = doc.data()
+            todoList.id = doc.id
+            this.todoList.push(todoList)
+          })
+        })
+      } else {
+        this.fetchTodo()
+      }
+    }
   },
   methods: {
+    fetchTodo () {
+      // fetch todo list data from firestore
+      this.todoList = []
+      db.collection('todoList').where('user_id', '==', this.user.uid).orderBy('timestamp', 'desc').get().then(snapshot => {
+        snapshot.forEach(doc => {
+          let todoList = doc.data()
+          todoList.id = doc.id
+          this.todoList.push(todoList)
+        })
+      })
+    },
     updateTodo (payload) {
       const status = payload.todo.status === 'inprogress' ? 'completed' : 'inprogress'
       db.collection('todoList').doc(payload.todo.id).update({

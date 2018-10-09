@@ -4,7 +4,7 @@
       <SidePanel />
     </div>
     <div class="col m8">
-      <TodoContainer :status="getStatus()" :heading="getHeading()" />
+      <TodoContainer :status="getStatus()" :heading="heading" />
     </div>
   </div>
 </template>
@@ -22,7 +22,16 @@ export default {
   },
   props: [ 'status' ],
   data () {
-    return {}
+    return {
+      heading: 'Inbox'
+    }
+  },
+  watch: {
+    '$route.params.title' (to, from) {
+      if (to && to !== from) {
+        this.heading = to
+      }
+    }
   },
   methods: {
     getStatus () {
@@ -30,14 +39,6 @@ export default {
         return this.status
       }
       return 'inprogress'
-    },
-    getHeading () {
-      if (this.status === 'completed') {
-        return 'Completed'
-      } else if (this.status === 'deleted') {
-        return 'Deleted'
-      }
-      return 'Inbox'
     }
   }
 }
