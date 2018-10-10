@@ -1,6 +1,6 @@
 <template>
     <nav class="nav-wrapper deep-purple accent-4">
-        <router-link :to="{ name: 'Home' }" class="brand-logo center">
+        <router-link :to="{ name: 'Home', params: { status: 'inprogress', title: 'Inbox' }}" class="brand-logo center">
             Todo List
         </router-link>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -18,12 +18,12 @@
             </router-link>
           </li>
           <li v-if="user" @click="closeNav">
-            <router-link class="collection-item" :to="{ name: 'Completed', params: { status: 'completed', title: 'Completed' }}">
+            <router-link class="collection-item" :to="{ name: 'Home', params: { status: 'completed', title: 'Completed' }}">
               <i class="material-icons">check</i>Completed
             </router-link>
           </li>
           <li v-if="user" @click="closeNav">
-            <router-link class="collection-item" :to="{ name: 'Deleted', params: { status: 'deleted', title: 'Deleted' }}">
+            <router-link class="collection-item" :to="{ name: 'Home', params: { status: 'deleted', title: 'Deleted' }}">
               <i class="material-icons">delete</i>Deleted
             </router-link>
           </li>

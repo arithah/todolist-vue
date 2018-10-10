@@ -24,7 +24,7 @@ const router = new Router({
       component: Login
     },
     {
-      path: '/',
+      path: '/:status',
       name: 'Home',
       component: Home,
       props: true,
@@ -35,24 +35,6 @@ const router = new Router({
     {
       path: '/projects/:projectid',
       name: 'Projects',
-      component: Home,
-      props: true,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/completed',
-      name: 'Completed',
-      component: Home,
-      props: true,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/deleted',
-      name: 'Deleted',
       component: Home,
       props: true,
       meta: {

@@ -47,32 +47,59 @@ export default {
     this.fetchTodo()
   },
   watch: {
-    '$route.params.projectid' (to, from) {
-      if (to) {
+    '$route.params' (to, from) {
+      console.log('params', to)
+      if (to.projectid) {
         this.todoList = []
-        db.collection('todoList').where('user_id', '==', this.user.uid).where('projectDetails.project_id', '==', this.$route.params.projectid).orderBy('timestamp', 'desc').get().then(snapshot => {
+        db.collection('todoList')
+          .where('user_id', '==', this.user.uid)
+          .where('projectDetails.project_id', '==', this.$route.params.projectid)
+          .orderBy('timestamp', 'desc').get().then(snapshot => {
+            snapshot.forEach(doc => {
+              let todoList = doc.data()
+              todoList.id = doc.id
+              this.todoList.push(todoList)
+            })
+          })
+      } else {
+        this.fetchTodo()
+      }
+    }
+    // '$route.params.projectid' (to, from) {
+    //   if (to) {
+    //     this.todoList = []
+    //     db.collection('todoList')
+    //       .where('user_id', '==', this.user.uid)
+    //       .where('projectDetails.project_id', '==', this.$route.params.projectid)
+    //       .orderBy('timestamp', 'desc').get().then(snapshot => {
+    //         snapshot.forEach(doc => {
+    //           let todoList = doc.data()
+    //           todoList.id = doc.id
+    //           this.todoList.push(todoList)
+    //         })
+    //       })
+    //   } else {
+    //     this.fetchTodo()
+    //   }
+    // }
+  },
+  methods: {
+    fetchTodo () {
+      console.log('_status', this.$route.params.status)
+      // fetch 'inprogress'todo list data from firestore
+      this.todoList = []
+      const _status = this.$route.params.status ? this.$route.params.status : 'inprogress'
+      db.collection('todoList')
+        .where('user_id', '==', this.user.uid)
+        .where('status', '==', _status)
+        .orderBy('timestamp', 'desc').get().then(snapshot => {
           snapshot.forEach(doc => {
             let todoList = doc.data()
             todoList.id = doc.id
             this.todoList.push(todoList)
           })
         })
-      } else {
-        this.fetchTodo()
-      }
-    }
-  },
-  methods: {
-    fetchTodo () {
-      // fetch todo list data from firestore
-      this.todoList = []
-      db.collection('todoList').where('user_id', '==', this.user.uid).orderBy('timestamp', 'desc').get().then(snapshot => {
-        snapshot.forEach(doc => {
-          let todoList = doc.data()
-          todoList.id = doc.id
-          this.todoList.push(todoList)
-        })
-      })
+      console.log('todolist', this.todoList)
     },
     handleTodo (payload) {
       db.collection('todoList').doc(payload.todo.id).update({

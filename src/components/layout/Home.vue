@@ -4,7 +4,7 @@
       <SidePanel />
     </div>
     <div class="col m8">
-      <TodoContainer :status="getStatus()" :heading="heading" />
+      <TodoContainer :status="status" :heading="heading" />
     </div>
   </div>
 </template>
@@ -34,12 +34,6 @@ export default {
     }
   },
   methods: {
-    getStatus () {
-      if (this.status) {
-        return this.status
-      }
-      return 'inprogress'
-    }
   }
 }
 </script>

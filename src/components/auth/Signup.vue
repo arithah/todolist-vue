@@ -64,7 +64,7 @@ export default {
             user_id: cred.user.uid
           })
         }).then(() => {
-          this.$router.push({ name: 'Home' })
+          this.$router.push({ name: 'Home', params: { status: 'inprogress', title: 'Inbox' } })
         }).catch(err => {
           this.feedback = err.message
         })
