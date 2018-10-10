@@ -47,7 +47,6 @@ export default {
         db.collection('projects').add({
           creator: this.user.email,
           displayName: this.newProject,
-          project_id: '', // TODO
           timestamp: Date.now(),
           users: {
             user_id: this.user.user_id

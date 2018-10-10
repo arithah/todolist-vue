@@ -73,15 +73,22 @@ export default {
         this.user = null
       }
     })
-
     // get current user
     const user = firebase.auth().currentUser
-    // fetch todo list data from firestore
-    db.collection('projects').where('users.user_id', '==', user.uid).get().then(snapshot => {
-      snapshot.forEach(doc => {
-        let project = doc.data()
-        project.id = doc.id
-        this.projects.push(project)
+    // fetch projects from firestore & update array when changes are made
+    db.collection('projects').where('users.user_id', '==', user.uid).onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+        if (change.type === 'added') {
+          let project = change.doc.data()
+          project.id = change.doc.id
+          this.projects.push(project)
+        }
+        if (change.type === 'modified') {
+          // TODO - modify
+        }
+        if (change.type === 'removed') {
+          // TODO - remove
+        }
       })
     })
   },
