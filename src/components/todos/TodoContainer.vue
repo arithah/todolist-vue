@@ -48,7 +48,6 @@ export default {
   },
   watch: {
     '$route.params' (to, from) {
-      console.log('params', to)
       if (to.projectid) {
         this.todoList = []
         db.collection('todoList')
@@ -65,27 +64,9 @@ export default {
         this.fetchTodo()
       }
     }
-    // '$route.params.projectid' (to, from) {
-    //   if (to) {
-    //     this.todoList = []
-    //     db.collection('todoList')
-    //       .where('user_id', '==', this.user.uid)
-    //       .where('projectDetails.project_id', '==', this.$route.params.projectid)
-    //       .orderBy('timestamp', 'desc').get().then(snapshot => {
-    //         snapshot.forEach(doc => {
-    //           let todoList = doc.data()
-    //           todoList.id = doc.id
-    //           this.todoList.push(todoList)
-    //         })
-    //       })
-    //   } else {
-    //     this.fetchTodo()
-    //   }
-    // }
   },
   methods: {
     fetchTodo () {
-      console.log('_status', this.$route.params.status)
       // fetch 'inprogress'todo list data from firestore
       this.todoList = []
       const _status = this.$route.params.status ? this.$route.params.status : 'inprogress'
@@ -99,12 +80,12 @@ export default {
             this.todoList.push(todoList)
           })
         })
-      console.log('todolist', this.todoList)
     },
     handleTodo (payload) {
       db.collection('todoList').doc(payload.todo.id).update({
         timestamp: Date.now(),
-        status: payload.status
+        status: payload.status,
+        prevStatus: payload.prevStatus
       }).then(() => {
         // manual update within UI
         this.todoList[payload.index].status = payload.status

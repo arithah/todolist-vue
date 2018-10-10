@@ -27,12 +27,20 @@
               <i class="material-icons">delete</i>Deleted
             </router-link>
           </li>
-          <li v-if="user && projects" @click="closeNav">
+          <li v-if="user" @click="closeNav">
             <a class="collection-item">Projects</a>
+          </li>
+          <li v-if="user && !projects" @click="closeNav">
+            <a class="collection-item">You have no Projects</a>
           </li>
           <li v-if="user" v-for="project in projects" :key="project.project_id" @click="closeNav">
             <router-link class="collection-item" :to="{ name: 'Projects', params: { projectid: project.project_id, title: project.displayName }}">
               <i class="material-icons">label</i>{{ project.displayName }}
+            </router-link>
+          </li>
+          <li v-if="user" @click="closeNav">
+            <router-link class="collection-item" :to="{ name: 'NewProject'}">
+              <i class="material-icons">add</i>Add a Project
             </router-link>
           </li>
           <li v-if="!user" @click="closeNav"><router-link :to="{ name: 'Signup' }">Signup</router-link></li>

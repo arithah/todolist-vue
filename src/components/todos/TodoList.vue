@@ -16,7 +16,7 @@
       <div class="todo">
         <p v-for="(todo, index) in todoList" :key="todo.id">
           <label v-if="status === todo.status">
-            <input type="checkbox" @click="todoClick(todo, index)" class="filled-in" :checked="todo.status === 'completed' ? 'checked' : ''"/>
+            <input type="checkbox" @click="todoClick(todo, index)" class="filled-in" :checked="checkStatus(todo)"/>
             <span :class="todo.status">
               <div @click.prevent="expandTodo(todo, index)">
                 {{ todo.displayName }}
@@ -24,8 +24,13 @@
             </span>
             <div v-if="expandedTodo === index"  class="expanded">
               <textarea name="comments" id="" cols="30" rows="10" placeholder="Comments - coming soon" disabled="true" ></textarea>
-              <i class="material-icons delete right" @click="deleteTodo(todo, index)">delete</i>
-              <i class="material-icons edit right" @click.prevent="editTodo(todo)">edit</i>
+              <div v-if="$router.currentRoute.path !== '/deleted'">
+                <i class="material-icons delete right" @click.prevent="deleteTodo(todo, index)">delete</i>
+                <i class="material-icons edit right" @click.prevent="editTodo(todo)">edit</i>
+              </div>
+              <div v-if="$router.currentRoute.path === '/deleted'">
+                <i class="material-icons delete right" @click.prevent="undoDelete(todo, index)">delete_forever</i>
+              </div>
             </div>
           </label>
         </p>
@@ -44,16 +49,33 @@ export default {
     }
   },
   props: [ 'todoList', 'status', 'emptyMessage' ],
+  watch: {
+    '$route' (to, from) {
+      if (to !== from) {
+        this.expandedTodo = null
+      }
+    }
+  },
   methods: {
     todoClick (todo, index) {
       const status = todo.status === 'inprogress' ? 'completed' : 'inprogress'
-      this.$emit('handleTodo', { todo, index, status })
+      this.$emit('handleTodo', { todo, index, status, prevStatus: todo.status })
     },
     deleteTodo (todo, index) {
-      this.$emit('handleTodo', { todo, index, status: 'deleted' })
+      this.$emit('handleTodo', { todo, index, status: 'deleted', prevStatus: todo.status })
+    },
+    undoDelete (todo, index) {
+      this.$emit('handleTodo', { todo, index, status: todo.prevStatus, prevStatus: 'deleted' })
     },
     editTodo (todo) {
       this.$router.push({name: 'EditTodo', params: { todo }})
+    },
+    checkStatus (todo) {
+      if (todo.status === 'deleted') {
+        return todo.prevStatus === 'completed' ? 'checked' : ''
+      } else {
+        return todo.status === 'completed' ? 'checked' : ''
+      }
     },
     expandTodo (todo, index) {
       if (this.expandedTodo === index) {

@@ -4,6 +4,7 @@ import firebase from 'firebase'
 import Signup from '@/components/auth/Signup'
 import Login from '@/components/auth/Login'
 import Home from '@/components/layout/Home'
+import NewProject from '@/components/todos/NewProject'
 import NewTodo from '@/components/todos/NewTodo'
 import EditTodo from '@/components/todos/EditTodo'
 import ViewProfile from '@/components/layout/ViewProfile'
@@ -37,6 +38,14 @@ const router = new Router({
       name: 'Projects',
       component: Home,
       props: true,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/new-project',
+      name: 'NewProject',
+      component: NewProject,
       meta: {
         requiresAuth: true
       }
