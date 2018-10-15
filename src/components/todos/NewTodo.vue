@@ -4,7 +4,19 @@
       <h4 class="heading center">Add To Do</h4>
       <div class="card-content">
         <div class="add-todo">
-          <input type="text" class="validate" @keydown.enter.prevent="addToDo" v-model="newToDo">
+          <div class="field">
+            <label for="addtodo">To Do</label>
+            <input type="text" name="addtodo" class="validate" @keydown.enter.prevent="addToDo" v-model="newToDo">
+          </div>
+          <div class="field">
+            <label for="addtodo">Select a project</label>
+            <p v-for="project in projects" :key="project.id">
+              <label>
+                <input name="project.project_id" type="radio" @click="handleSelect(project)" :checked="project.id === selectedProject.id"/>
+                <span>{{ project.displayName }}</span>
+              </label>
+            </p>
+          </div>
           <p class="red-text center" v-if="message">{{ message }}</p>
           <div class="field center">
             <button @click="addToDo" class="btn pink accent-3">Add Todo</button>
@@ -27,7 +39,9 @@ export default {
     return {
       user: null,
       message: null,
-      newToDo: null
+      projects: [],
+      newToDo: null,
+      selectedProject: null
     }
   },
   created () {
@@ -40,8 +54,29 @@ export default {
         this.user.id = doc.id
       })
     })
+    // fetch projects from firestore
+    db.collection('projects').where('users.user_id', '==', user.uid).get().then(snapshot => {
+      snapshot.forEach(doc => {
+        if (doc.data().displayName === 'Inbox') {
+          console.log('project Inbox')
+          this.selectedProject = {
+            id: doc.id,
+            name: doc.data().displayName
+          }
+        }
+        let project = doc.data()
+        project.id = doc.id
+        this.projects.push(project)
+      })
+    })
   },
   methods: {
+    handleSelect (project) {
+      this.selectedProject = {
+        id: project.id,
+        name: project.displayName
+      }
+    },
     addToDo () {
       if (this.newToDo) {
         db.collection('todoList').add({
@@ -49,6 +84,10 @@ export default {
           userDetails: {
             name: this.user.name,
             email: this.user.email
+          },
+          projectDetails: {
+            project_id: this.project.id,
+            project_name: this.project.name
           },
           timestamp: Date.now(),
           displayName: this.newToDo,
@@ -60,7 +99,7 @@ export default {
         })
         this.message = null
       } else {
-        this.message = 'You must enter a new to do'
+        this.message = 'Please enter all values'
       }
     },
     cancel () {
@@ -73,5 +112,8 @@ export default {
 <style>
   .add-todo .field {
     margin-top: 16px;
+  }
+  select {
+    display: inline;
   }
 </style>
