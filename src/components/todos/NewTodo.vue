@@ -58,7 +58,6 @@ export default {
     db.collection('projects').where('users.user_id', '==', user.uid).get().then(snapshot => {
       snapshot.forEach(doc => {
         if (doc.data().displayName === 'Inbox') {
-          console.log('project Inbox')
           this.selectedProject = {
             id: doc.id,
             name: doc.data().displayName
@@ -86,8 +85,8 @@ export default {
             email: this.user.email
           },
           projectDetails: {
-            project_id: this.project.id,
-            project_name: this.project.name
+            project_id: this.selectedProject.id,
+            project_name: this.selectedProject.name
           },
           timestamp: Date.now(),
           displayName: this.newToDo,

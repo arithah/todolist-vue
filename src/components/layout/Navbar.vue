@@ -12,30 +12,12 @@
         </ul>
 
         <ul class="sidenav" id="mobile-demo">
-          <li v-if="user" @click="closeNav">
-            <router-link class="collection-item" :to="{ name: 'Home', params: { status: 'inprogress', title: 'Inbox' }}">
-              <span class="badge">12</span><i class="material-icons">inbox</i>Inbox
-            </router-link>
-          </li>
-          <li v-if="user" @click="closeNav">
-            <router-link class="collection-item" :to="{ name: 'Home', params: { status: 'completed', title: 'Completed' }}">
-              <i class="material-icons">check</i>Completed
-            </router-link>
-          </li>
-          <li v-if="user" @click="closeNav">
-            <router-link class="collection-item" :to="{ name: 'Home', params: { status: 'deleted', title: 'Deleted' }}">
-              <i class="material-icons">delete</i>Deleted
-            </router-link>
-          </li>
-          <li v-if="user" @click="closeNav">
-            <a class="collection-item">Projects</a>
-          </li>
-          <li v-if="user && !projects" @click="closeNav">
-            <a class="collection-item">You have no Projects</a>
-          </li>
-          <li v-if="user" v-for="project in projects" :key="project.project_id" @click="closeNav">
-            <router-link class="collection-item" :to="{ name: 'Projects', params: { projectid: project.project_id, title: project.displayName }}">
-              <i class="material-icons">label</i>{{ project.displayName }}
+          <li v-if="user" v-for="project in projects" :key="project.id" @click="closeNav">
+            <router-link class="collection-item" :to="{ name: 'Projects', params: { status: 'inprogress', projectid: project.id, title: project.displayName }}">
+                <i v-if="project.displayName === 'Inbox'" class="material-icons">inbox</i>
+                <i v-if="project.displayName !== 'Inbox'" class="material-icons">label</i>
+                {{ project.displayName }}
+                <!-- <span class="badge">12</span> -->
             </router-link>
           </li>
           <li v-if="user" @click="closeNav">
@@ -43,10 +25,27 @@
               <i class="material-icons">add</i>Add a Project
             </router-link>
           </li>
-          <li v-if="!user" @click="closeNav"><router-link :to="{ name: 'Signup' }">Signup</router-link></li>
-          <li v-if="!user" @click="closeNav"><router-link :to="{ name: 'Login' }">Login</router-link></li>
-          <li v-if="user" @click="closeNav"><router-link :to="{ name: 'ViewProfile' }">{{ user.email }}</router-link></li>
-          <li v-if="user"><a @click="logout">Logout</a></li>
+          <!-- <li v-if="user" @click="closeNav">
+            <router-link class="collection-item" :to="{ name: 'Home', params: { status: 'inprogress', title: 'Inbox' }}">
+              <i class="material-icons">inbox</i>Inbox<span class="badge">12</span>
+            </router-link>
+          </li> -->
+          <ul class="bottom-items">
+            <li v-if="user" @click="closeNav">
+              <router-link class="collection-item" :to="{ name: 'Home', params: { status: 'completed', title: 'Completed' }}">
+                <i class="material-icons">check</i>Completed
+              </router-link>
+            </li>
+            <li v-if="user" @click="closeNav">
+              <router-link class="collection-item" :to="{ name: 'Home', params: { status: 'deleted', title: 'Deleted' }}">
+                <i class="material-icons">delete</i>Deleted
+              </router-link>
+            </li>
+            <li v-if="!user" @click="closeNav"><router-link :to="{ name: 'Signup' }">Signup</router-link></li>
+            <li v-if="!user" @click="closeNav"><router-link :to="{ name: 'Login' }">Login</router-link></li>
+            <li v-if="user" @click="closeNav"><router-link :to="{ name: 'ViewProfile' }">{{ user.email }}</router-link></li>
+            <li v-if="user"><a @click="logout">Logout</a></li>
+          </ul>
         </ul>
     </nav>
 </template>
@@ -69,6 +68,7 @@ export default {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.user = user
+        console.log('user', user)
       } else {
         this.user = null
       }
@@ -116,5 +116,13 @@ export default {
 <style>
   .nav-wrapper {
       padding: 0 20px;
+  }
+  .nav-wrapper .sidenav .bottom-items {
+    position: absolute;
+    bottom: 10%;
+  }
+  .nav-wrapper .sidenav .collection-item .item i {
+    display: inline-block;
+    padding-right: 20px;
   }
 </style>

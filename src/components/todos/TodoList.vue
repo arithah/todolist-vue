@@ -1,7 +1,7 @@
 <template>
   <div class="todo-list">
     <div class="desktop hide-on-med-and-down">
-      <p v-if="showEmptyMessage()" class="grey-text">{{ emptyMessage }}</p>
+      <p v-if="todoList.length === 0" class="grey-text">{{ emptyMessage }}</p>
       <div class="todo">
         <p v-for="(todo, index) in todoList" :key="todo.id">
           <label v-if="status === todo.status">
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="mobile hide-on-large-only">
-      <p v-if="showEmptyMessage()" class="grey-text">{{ emptyMessage }}</p>
+      <p v-if="todoList.length === 0" class="grey-text">{{ emptyMessage }}</p>
       <div class="todo">
         <p v-for="(todo, index) in todoList" :key="todo.id">
           <label v-if="status === todo.status">
